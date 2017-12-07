@@ -1,0 +1,18 @@
+PODS:
+  - Alamofire (4.6.0)
+  - Fuzi (2.0.1)
+  - Kingfisher (4.5.0)
+
+DEPENDENCIES:
+  - Alamofire (= 4.6.0)
+  - Fuzi (= 2.0.1)
+  - Kingfisher (= 4.5.0)
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Fuzi: f64983dea705491d3aedd32351247a09523e7efd
+  Kingfisher: 26ae0473102b77b575da51960c932431e3745407
+
+PODFILE CHECKSUM: b8c1edcc1d94c8f982ad325403e3c64a3e88e283
+
+COCOAPODS: 1.3.1

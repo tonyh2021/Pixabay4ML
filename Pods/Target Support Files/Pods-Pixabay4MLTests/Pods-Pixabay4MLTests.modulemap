@@ -1,0 +1,6 @@
+framework module Pods_Pixabay4MLTests {
+  umbrella header "Pods-Pixabay4MLTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

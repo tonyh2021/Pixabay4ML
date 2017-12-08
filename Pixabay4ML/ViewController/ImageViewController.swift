@@ -18,6 +18,8 @@ class ImageViewController: UIViewController {
     
     var inputImage: UIImage?
     
+    @IBOutlet weak var labelView: UIView!
+    
     @IBOutlet weak var classLabel: UILabel!
     
     @IBOutlet weak var probLabel: UILabel!
@@ -25,7 +27,8 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Pixabay4ML"
+//        navigationItem.title = "Pixabay4ML"
+        navigationController?.navigationBar.isHidden = true
         
         imageView.kf.indicatorType = .activity
         imageView.kf.indicator?.startAnimatingView()
@@ -35,6 +38,8 @@ class ImageViewController: UIViewController {
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        
+        labelView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
         
         loadImage()
         
@@ -63,7 +68,6 @@ class ImageViewController: UIViewController {
                                         //                                    print("\(receivedSize)/\(totalSize)")
             },
                                        completionHandler: { image, error, cacheType, imageURL in
-                                        self.imageView.isUserInteractionEnabled = true
                                         self.predictImage(image!)
             })
         }
@@ -104,10 +108,26 @@ class ImageViewController: UIViewController {
             return
         }
         
+        imageView.kf.indicator?.stopAnimatingView()
+        
         classLabel.isHidden = false
-        classLabel.text = "可能是：\(prediction.classLabel)"
+        classLabel.alpha = 0
+        
+        let classLabelText = prediction.classLabel.split(separator: ",").first!
+        classLabel.text = "ClassLabel : \(String(describing: classLabelText))"
         
         probLabel.isHidden = false
-        probLabel.text = "可能性为：\(String(describing: prediction.classLabelProbs[prediction.classLabel]!.description))"
+        probLabel.alpha = 0
+        
+        let prop = Double(prediction.classLabelProbs[prediction.classLabel]!)
+        let propText = String(format: "%.2f", prop)
+        probLabel.text = "Prob : \(propText)"
+        
+        UIView.animate(withDuration: 0.1, animations: {
+            self.classLabel.alpha = 1
+            self.probLabel.alpha = 1
+        }) { _ in
+            self.imageView.isUserInteractionEnabled = true
+        }
     }
 }

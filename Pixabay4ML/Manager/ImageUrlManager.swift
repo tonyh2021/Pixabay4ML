@@ -24,7 +24,7 @@ class ImageUrlManager {
     
     public func getUrl(_ completion: @escaping (String) -> Void) {
         let pagi = random(min: 1, max: 1000)
-        let urlString = "https://pixabay.com/zh/photos/?image_type=photo&order=popular&orientation=horizontal&cat=animals&pagi=\(pagi)"
+        let urlString = "https://pixabay.com/zh/photos/?min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&cat=animals&pagi=\(pagi)"
 
         Alamofire.request(urlString, method: .get).responseString { response in
 //            print("\(response.result.isSuccess)")
@@ -50,14 +50,13 @@ class ImageUrlManager {
             // 通过 CSS 解析
             let urls = doc.css(".item a img").map({ element -> String? in
                 if let srcset = element["srcset"] {
+//                    print(srcset)
                     //解析url
-                    if let url = srcset.split(separator: " ").first {
-                        return String(url)
-                    }
+                    let url = srcset.split(separator: " ").map(String.init)[2]
+                    return url
                 } else if let srcset = element["data-lazy-srcset"] {
-                    if let url = srcset.split(separator: " ").first {
-                        return String(url)
-                    }
+                    let url = srcset.split(separator: " ").map(String.init)[2]
+                    return url
                 }
                 return nil
             })

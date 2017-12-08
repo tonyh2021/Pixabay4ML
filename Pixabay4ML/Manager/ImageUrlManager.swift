@@ -16,25 +16,53 @@ class ImageUrlManager {
     var urls: [String] = []
     
     fileprivate init() {
-        
     }
     
     deinit {
     }
     
-    public func getUrl(_ completion: @escaping (String) -> Void) {
-        let pagi = random(min: 1, max: 1000)
-        let urlString = "https://pixabay.com/zh/photos/?min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&cat=animals&pagi=\(pagi)"
+    public func getUrl(_ completion: @escaping (String?) -> Void) {
+        let page = random(min: 1, max: 5)
+        let per_page = 100
+        
+        let apiString = "https://pixabay.com/api/?key=7318185-03d52677622dc8dced9a4332d&min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&category=animals&page=\(page)&per_page=\(per_page)"
 
-        Alamofire.request(urlString, method: .get).responseString { response in
-//            print("\(response.result.isSuccess)")
-            if let html = response.result.value {
-                if let url = self.parseHTML(html) {
-//                    print(url)
-                    completion (url)
+        Alamofire.request(apiString, method: .get)
+            .responseJSON { response in
+                switch response.result {
+                case .failure(let error):
+                    print(error)
+                    completion(nil)
+                    return
+                case .success(let data):
+                    guard let json = data as? [String : AnyObject] else {
+                        completion(nil)
+                        return
+                    }
+                    guard let hits = json["hits"] as? [[String : AnyObject]] else {
+                        completion(nil)
+                        return
+                    }
+                    let index = self.random(min: 0, max: per_page)
+                    guard let webformatURL = hits[index]["webformatURL"] as? String else {
+                        completion(nil)
+                        return
+                    }
+                    completion(webformatURL)
                 }
-            }
         }
+        
+        //使用 html，后面使用 pixabay 提供的 api
+//        let urlString = "https://pixabay.com/zh/photos/?min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&cat=animals&pagi=\(pagi)"
+        
+//        Alamofire.request(apiString, method: .get).responseString { response in
+//            //            print("\(response.result.isSuccess)")
+//            if let html = response.result.value {
+//                if let url = self.parseHTML(html) {
+//                    completion (url)
+//                }
+//            }
+//        }
     }
     
     /// 解析html文档，暂存urls，返回获取到的url

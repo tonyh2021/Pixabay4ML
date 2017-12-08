@@ -59,13 +59,18 @@ class ImageViewController: UIViewController {
         classLabel.isHidden = true
         probLabel.isHidden = true
         
-        ImageUrlManager.shared.getUrl { urlString in
+        ImageUrlManager.shared.getUrl {
+            guard let urlString = $0 else {
+                self.refreshUI(nil)
+                return
+            }
+
             let url = URL(string:urlString)!
             self.imageView.kf.setImage(with: url,
                                        placeholder: nil,
                                        options: [.transition(ImageTransition.fade(1))],
                                        progressBlock: { receivedSize, totalSize in
-                                        //                                    print("\(receivedSize)/\(totalSize)")
+//                                        print("\(receivedSize)/\(totalSize)")
             },
                                        completionHandler: { image, error, cacheType, imageURL in
                                         self.predictImage(image!)
@@ -104,30 +109,41 @@ class ImageViewController: UIViewController {
         CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
         
         /// 预测图片
-        guard let prediction = try? model.prediction(image: pixelBuffer!) else {
-            return
+        if let prediction = try? model.prediction(image: pixelBuffer!) {
+            refreshUI(prediction)
+        } else {
+            refreshUI(nil)
         }
-        
-        imageView.kf.indicator?.stopAnimatingView()
-        
-        classLabel.isHidden = false
-        classLabel.alpha = 0
-        
-        let classLabelText = prediction.classLabel.split(separator: ",").first!
-        classLabel.text = "ClassLabel : \(String(describing: classLabelText))"
-        
-        probLabel.isHidden = false
-        probLabel.alpha = 0
-        
-        let prop = Double(prediction.classLabelProbs[prediction.classLabel]!)
-        let propText = String(format: "%.2f", prop)
-        probLabel.text = "Prob : \(propText)"
-        
-        UIView.animate(withDuration: 0.1, animations: {
-            self.classLabel.alpha = 1
-            self.probLabel.alpha = 1
-        }) { _ in
-            self.imageView.isUserInteractionEnabled = true
+    }
+    
+    func refreshUI(_ prediction : Inceptionv3Output?) {
+        if prediction != nil {
+            imageView.kf.indicator?.stopAnimatingView()
+            
+            classLabel.isHidden = false
+            classLabel.alpha = 0
+            
+            let classLabelText = prediction!.classLabel.split(separator: ",").first!
+            classLabel.text = "ClassLabel : \(String(describing: classLabelText))"
+            
+            probLabel.isHidden = false
+            probLabel.alpha = 0
+            
+            let prop = Double(prediction!.classLabelProbs[prediction!.classLabel]!)
+            let propText = String(format: "%.2f", prop)
+            probLabel.text = "Prob : \(propText)"
+            
+            UIView.animate(withDuration: 0.1, animations: {
+                self.classLabel.alpha = 1
+                self.probLabel.alpha = 1
+            }) { _ in
+                self.imageView.isUserInteractionEnabled = true
+            }
+        } else {
+            imageView.kf.indicator?.stopAnimatingView()
+            classLabel.isHidden = false
+            classLabel.text = "Load failed...Tap the screen to reload."
+            imageView.isUserInteractionEnabled = true
         }
     }
 }

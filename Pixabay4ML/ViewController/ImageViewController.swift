@@ -27,7 +27,6 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        navigationItem.title = "Pixabay4ML"
         navigationController?.navigationBar.isHidden = true
         
         imageView.kf.indicatorType = .activity
@@ -38,12 +37,19 @@ class ImageViewController: UIViewController {
         
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        let image = UIImage(named:"cat")
+        imageView.image = image
         
         labelView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.7)
-        
-        loadImage()
+        classLabel.isHidden = true
+        probLabel.isHidden = true
         
         model = Inceptionv3()
+        
+        let deadline = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: deadline) {
+            self.predictImage(image!)
+        }
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {

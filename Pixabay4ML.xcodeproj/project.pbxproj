@@ -14,7 +14,6 @@
 		D87729FF1FD8D4B60051B49C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87729FE1FD8D4B60051B49C /* AppDelegate.swift */; };
 		D8772A041FD8D4B60051B49C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8772A021FD8D4B60051B49C /* Main.storyboard */; };
 		D8772A061FD8D4B60051B49C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8772A051FD8D4B60051B49C /* Assets.xcassets */; };
-		D8772A091FD8D4B60051B49C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8772A071FD8D4B60051B49C /* LaunchScreen.storyboard */; };
 		D8772A141FD8D4B60051B49C /* Pixabay4MLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8772A131FD8D4B60051B49C /* Pixabay4MLTests.swift */; };
 		D8772A1F1FD8D4B60051B49C /* Pixabay4MLUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8772A1E1FD8D4B60051B49C /* Pixabay4MLUITests.swift */; };
 		D8F13B291FD8F36A0081C1BB /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F13B271FD8F36A0081C1BB /* ImageViewController.swift */; };
@@ -53,7 +52,6 @@
 		D87729FE1FD8D4B60051B49C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8772A031FD8D4B60051B49C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8772A051FD8D4B60051B49C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D8772A081FD8D4B60051B49C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8772A0A1FD8D4B60051B49C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8772A0F1FD8D4B60051B49C /* Pixabay4MLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pixabay4MLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8772A131FD8D4B60051B49C /* Pixabay4MLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pixabay4MLTests.swift; sourceTree = "<group>"; };
@@ -133,7 +131,6 @@
 				D87729FE1FD8D4B60051B49C /* AppDelegate.swift */,
 				D8772A021FD8D4B60051B49C /* Main.storyboard */,
 				D8772A051FD8D4B60051B49C /* Assets.xcassets */,
-				D8772A071FD8D4B60051B49C /* LaunchScreen.storyboard */,
 				D85ACDEF1FD9335A00B4F737 /* Inceptionv3.mlmodel */,
 				D8772A0A1FD8D4B60051B49C /* Info.plist */,
 			);
@@ -303,7 +300,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8772A091FD8D4B60051B49C /* LaunchScreen.storyboard in Resources */,
 				D8772A061FD8D4B60051B49C /* Assets.xcassets in Resources */,
 				D8772A041FD8D4B60051B49C /* Main.storyboard in Resources */,
 			);
@@ -531,14 +527,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		D8772A071FD8D4B60051B49C /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D8772A081FD8D4B60051B49C /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -654,6 +642,7 @@
 			baseConfigurationReference = 1605422C2F0D22F6CC1B39F1 /* Pods-Pixabay4ML.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 736T58M9ZN;
 				INFOPLIST_FILE = Pixabay4ML/Info.plist;
@@ -661,7 +650,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qding.ml;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -670,6 +659,7 @@
 			baseConfigurationReference = 8C6FDC1761A91732A7AF4AAA /* Pods-Pixabay4ML.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 736T58M9ZN;
 				INFOPLIST_FILE = Pixabay4ML/Info.plist;
@@ -677,7 +667,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.qding.ml;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

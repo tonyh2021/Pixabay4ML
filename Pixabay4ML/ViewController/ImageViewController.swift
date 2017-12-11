@@ -76,7 +76,7 @@ class ImageViewController: UIViewController {
                                        placeholder: nil,
                                        options: [.transition(ImageTransition.fade(1))],
                                        progressBlock: { receivedSize, totalSize in
-//                                        print("\(receivedSize)/\(totalSize)")
+                                        print("\(receivedSize)/\(totalSize)")
             },
                                        completionHandler: { image, error, cacheType, imageURL in
                                         self.predictImage(image!)

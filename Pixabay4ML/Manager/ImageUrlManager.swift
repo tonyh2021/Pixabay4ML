@@ -22,10 +22,10 @@ class ImageUrlManager {
     }
     
     public func getUrl(_ completion: @escaping (String?) -> Void) {
+        
         let page = random(min: 1, max: 5)
         let per_page = 100
-        
-        let apiString = "https://pixabay.com/api/?key=7318185-03d52677622dc8dced9a4332d&min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&category=animals&page=\(page)&per_page=\(per_page)"
+        let apiString = "https://pixabay.com/api/?key=7318185-03d52677622dc8dced9a4332d&min_width=640&min_height=1136&image_type=photo&lang=zh&order=popular&orientation=vertical&category=animals&page=\(page)&per_page=\(per_page)"
 
         Alamofire.request(apiString, method: .get)
             .responseJSON { response in
@@ -53,9 +53,10 @@ class ImageUrlManager {
         }
         
         //使用 html，后面使用 pixabay 提供的 api
-//        let urlString = "https://pixabay.com/zh/photos/?min_width=750&min_height=1334&image_type=photo&order=popular&orientation=vertical&cat=animals&pagi=\(pagi)"
-        
-//        Alamofire.request(apiString, method: .get).responseString { response in
+//        let pagi = random(min: 1, max: 1000)
+//        let urlString = "https://pixabay.com/zh/photos/?min_width=640&min_height=1136&image_type=photo&order=popular&orientation=vertical&cat=animals&pagi=\(pagi)"
+//
+//        Alamofire.request(urlString, method: .get).responseString { response in
 //            //            print("\(response.result.isSuccess)")
 //            if let html = response.result.value {
 //                if let url = self.parseHTML(html) {
